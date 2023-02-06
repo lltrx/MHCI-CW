@@ -1,2 +1,38 @@
 # MHCI-CW
-The Course Work for Mobile HCI
+
+
+## Get Started
+
+To start the project, run the following commands:
+
+```
+npm install
+npm start
+```
+
+### Make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/en/)
+
+## Project Structure
+
+```
+.
+├── README.md
+├── package.json
+├── App.js
+├── Components
+│   ├── Pages
+│   │   ├── Home.js
+│   │   ├─- other pages
+│   ├── Images
+│   │   ├── logo.png
+│   │   ├─- other images
+│   ├── Utlities
+│   │   ├── Any files that are used in multiple places
+```
+
+## Project Description
+
+Write the description of the project here.
+
