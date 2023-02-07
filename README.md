@@ -10,6 +10,13 @@ npm install
 npm start
 ```
 
+To start the project from a codespace, run the following commands:
+
+```
+npm install
+npm run codespace
+```
+
 ### Make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/en/)
