@@ -1,58 +1,86 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { BarChart } from "react-native-chart-kit";
+import { LineChart } from "react-native-chart-kit";
 
 export default function FriendHistory(friend) {
-  const data = {
-    labels: ["Distance (km)", "Time (hours)", "Elevation (m)"],
-    datasets: [
-      {
-        data: [100, 4, 2],
-      },
-    ],
-  };
+  const data = [
+    {
+      distance: 10,
+      time: 20,
+      speed: 30,
+    },
+    {
+      distance: 20,
+      time: 90,
+      speed: 20,
+    },
+    {
+      distance: 15,
+      time: 30,
+      speed: 30,
+    },
+    { 
+      distance: 20,
+      time: 40,
+      speed: 25,
+    },
+    {
+      distance: 10,
+      time: 45,
+      speed: 20,
+    },
+  ];
+
+  const distances = data.map(item => item.distance);
+  const times = data.map(item => item.time);
+  const speeds = data.map(item => item.speed);
+  // {
+  //   data: times,
+  //   color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`, // Green line
+  // },
+  // {
+  //   data: speeds,
+  //   color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`, // Blue line
+  // },
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>John Doe's Profile</Text>
-      <View style={styles.chartContainer}>
-        <BarChart
-          data={data}
-          width={350}
-          height={220}
-          yAxisLabel=""
-          chartConfig={{
-            backgroundGradientFrom: "#f5f5f5",
-            backgroundGradientTo: "#f5f5f5",
-            fillShadowGradient: "#d9d9d9",
-            fillShadowGradientOpacity: 1,
-            decimalPlaces: 0,
-            color: (opacity = 1) => `rgba(92, 184, 92, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-            propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "#ffa726",
-            },
-          }}
-        />
+      <Text style={styles.header}>Alice's Profile</Text>
+      <View style={styles.userDetails}>
+        <Text>Alice's best cycle</Text>
+        <Text>Best Distance: 20 km</Text>
+        <Text>Elpased Time: 40 minutes</Text>
+        <Text>Average Speed: 25 km/h</Text>
+        <Text>Alice's last cycle</Text>
+        <Text>Distance: 10 km</Text>
+        <Text>Elpased Time: 45 minutes</Text>
+        <Text>Average Speed: 20 km/h</Text>
       </View>
-      <View style={styles.statContainer}>
-        <View style={styles.statItem}>
-          <Text style={styles.statValue}>20</Text>
-          <Text style={styles.statLabel}>Distance (km)</Text>
-        </View>
-        <View style={styles.statItem}>
-          <Text style={styles.statValue}>2</Text>
-          <Text style={styles.statLabel}>Time (hours)</Text>
-        </View>
-        <View style={styles.statItem}>
-          <Text style={styles.statValue}>30</Text>
-          <Text style={styles.statLabel}>Elevation (m)</Text>
-        </View>
+      <View style={styles.chartContainer}>
+      <LineChart
+        data={{
+          labels: ['1/12/20', '7/12/20', '9/12/20', '4/1/21', '9/1/21'],
+          legend: ['Distance'], 
+
+          datasets: [
+            {
+              data: distances,
+              color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`, // Red line
+            },
+
+          ]
+        }}
+        width={300} // Width of the chart (replace with desired value)
+        height={220} // Height of the chart
+        yAxisSuffix="km"
+        fromZero={true}
+        chartConfig={{
+          decimalPlaces: 0, 
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, 
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, 
+        }}
+        style={{ marginVertical: 8, borderRadius: 16 }}
+      />
       </View>
     </View>
   );
@@ -74,24 +102,7 @@ const styles = StyleSheet.create({
   chartContainer: {
     padding: 10,
   },
-  statContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    width: "100%",
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  statItem: {
-    alignItems: "center",
-  },
-  statValue: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  statLabel: {
-    fontSize: 14,
-    color: "#999",
+  userDetails: {
+    padding: 10,
   },
 });

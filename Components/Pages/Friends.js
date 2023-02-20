@@ -11,11 +11,6 @@ export default function Friends() {
     <SafeAreaView style={tailwind("flex-1 items-center justify-center")}>
       <View>
       <FriendList />
-      <NavigateButton
-        style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
-        title="Navigate to FriendHistory"
-        to="FriendHistory"
-      />
     </View>
     </SafeAreaView>
   );

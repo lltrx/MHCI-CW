@@ -16,6 +16,11 @@ export default function Home() {
           title="Navigate to Friends"
           to="Friends"
         />
+        <NavigateButton
+          style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
+          title="Navigate to MyProfile"
+          to="MyProfile"
+        />
       </View>
     </SafeAreaView>
   );

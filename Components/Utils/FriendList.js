@@ -16,7 +16,7 @@ export default function FriendList(friend) {
   ]);
 
   const handleAddFriend = () => {
-    // TODO: Implement adding a friend
+    setFriends([...friends, { id: 3, name: "Charlie" }]);
     console.log("Add friend");
   };
 
