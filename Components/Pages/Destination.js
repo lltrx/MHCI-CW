@@ -5,7 +5,7 @@ import NavigateButton from "../Utils/NavigateButton";
 export default function Destination() {
   return (
     <SafeAreaView style={tailwind("flex-1 items-center justify-center")}>
-      <View >
+      <View>
         <NavigateButton
           style={tailwind("bg-blue-500 px-5 py-3 rounded-full")}
           title="Navigate to Home"

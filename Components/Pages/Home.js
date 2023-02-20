@@ -2,7 +2,7 @@ import { SafeAreaView, Text, View } from "react-native";
 import tailwind from "tailwind-rn";
 import NavigateButton from "../Utils/NavigateButton";
 
-export default function Home(props) {
+export default function Home() {
   return (
     <SafeAreaView style={tailwind("flex-1 items-center justify-center")}>
       <View >

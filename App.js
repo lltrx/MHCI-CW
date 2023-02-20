@@ -1,9 +1,9 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './Components/Pages/Home';
-import Destination from './Components/Pages/Destination';
-import Friends from './Components/Pages/Friends';
-import FriendHistory from './Components/Utils/FriendHistory';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./Components/Pages/Home";
+import Destination from "./Components/Pages/Destination";
+import Friends from "./Components/Pages/Friends";
+import FriendHistory from "./Components/Utils/FriendHistory";
 
 const Stack = createNativeStackNavigator();
 
