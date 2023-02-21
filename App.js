@@ -1,4 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { View } from "react-native";
+import tailwind from "tailwind-rn";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./Components/Pages/Home";
 import Destination from "./Components/Pages/Destination";

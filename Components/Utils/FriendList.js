@@ -21,8 +21,8 @@ export default function FriendList(friend) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Friends</Text>
+    <View style={tailwind("flex-1 flex-col top-56 items-center")}>
+      <Text style={tailwind("text-lg font-bold")}>Friends:</Text>
       <View>
         {friends.map((friend) => (
           <NavigateButton
@@ -32,46 +32,12 @@ export default function FriendList(friend) {
           />
         ))}
       </View>
-      <TouchableOpacity style={styles.addButton} onPress={handleAddFriend}>
-        <Text style={styles.addButtonText}>Add Friend</Text>
+      <TouchableOpacity
+        style={tailwind("bg-green-800 py-2 px-2 rounded-md m-5")}
+        onPress={handleAddFriend}
+      >
+        <Text style={tailwind("text-white font-bold")}>Add Friend</Text>
       </TouchableOpacity>
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-  },
-  friendsList: {
-    flex: 1,
-    marginRight: 10,
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  friendItem: {
-    width: "100%",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    backgroundColor: "#eee",
-    borderRadius: 10,
-    marginVertical: 5,
-  },
-  addButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    backgroundColor: "#5cb85c",
-    borderRadius: 10,
-    marginVertical: 5,
-  },
-  addButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-});

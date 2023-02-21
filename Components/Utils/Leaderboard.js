@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import tailwind from "tailwind-rn";
 
 export default function Leaderboard() {
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -15,59 +16,21 @@ export default function Leaderboard() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Leaderboard</Text>
+    <View style={tailwind("flex-1 items-center justify-center")}>
+      <View style={tailwinds("w-[100%] h-[50px] bg-[#6A5ACD]")}>
+        <Text style={tailwind("font-bold font-lg")}>Leaderboard</Text>
       </View>
-      <View style={styles.leaderboard}>
+      <View style={tailwind("w-[100%] p-2")}>
         {leaderboardData.map((user, index) => (
-          <View style={styles.user} key={index}>
-            <Text style={styles.userName}>{user.name}</Text>
-            <Text style={styles.userScore}>{user.score}</Text>
+          <View
+            style={tailwind("flex-row justify-between items-center p-2")}
+            key={index}
+          >
+            <Text style={tailwind("font-bold font-lg")}>{user.name}</Text>
+            <Text style={tailwind("font-bold font-lg")}>{user.score}</Text>
           </View>
         ))}
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  header: {
-    width: "100%",
-    height: 50,
-    backgroundColor: "#6A5ACD",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  headerText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  leaderboard: {
-    width: "100%",
-    padding: 10,
-  },
-  user: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
-  },
-  userName: {
-    fontWeight: "bold",
-    fontSize: 18,
-  },
-  userScore: {
-    fontWeight: "bold",
-    fontSize: 18,
-  },
-});
