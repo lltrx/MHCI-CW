@@ -1,6 +1,7 @@
 import { View, Dimensions, StyleSheet, Text } from "react-native";
 import tailwind from "tailwind-rn";
 import NavigateButton from "../Utils/NavigateButton";
+import PopUp from "../Utils/popUp";
 
 export default function Destination() {
   return (
@@ -10,6 +11,7 @@ export default function Destination() {
         title="Navigate to MapPage"
         to="MapPage"
       />
+      <PopUp />
     </View>
   );
 }

@@ -53,7 +53,6 @@ export default function MapPage(InputAutocompleteProps) {
     right: edagePaddingValue,
     bottom: edagePaddingValue,
     left: edagePaddingValue,
-    
   };
 
   const traceRouteOnReady = (args: any) => {
@@ -65,11 +64,8 @@ export default function MapPage(InputAutocompleteProps) {
   const traceRoute = () => {
     if (origin && destination) {
       setShowDirections(true);
-      mapRef.current?.fitToCoordinates(
-        [origin, destination],
-        {edgePadding}
-      );
-    } 
+      mapRef.current?.fitToCoordinates([origin, destination], { edgePadding });
+    }
   };
   return (
     <View style={tailwind("flex-1 items-center justify-center")}>
@@ -109,10 +105,10 @@ export default function MapPage(InputAutocompleteProps) {
         >
           <Text>Get Directions</Text>
         </TouchableOpacity>
-        { distance > 0 && duration > 0 ? (
-        <View style={tailwind("flex-row justify-between")}>
-          <Text>Distance: {distance.toFixed(2)} km</Text>
-          <Text>Duration: {Math.ceil(duration)} min</Text>
+        {distance > 0 && duration > 0 ? (
+          <View style={tailwind("flex-row justify-between")}>
+            <Text>Distance: {distance.toFixed(2)} km</Text>
+            <Text>Duration: {Math.ceil(duration)} min</Text>
           </View>
         ) : null}
       </View>
