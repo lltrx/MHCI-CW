@@ -7,6 +7,7 @@ import { useState, useRef } from "react";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_API_KEY } from "../../env";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import PopUp from "../Utils/popUp";
 
 const { width, height } = Dimensions.get("window");
 
@@ -69,6 +70,7 @@ export default function MapPage(InputAutocompleteProps) {
   };
   return (
     <View style={tailwind("flex-1 items-center justify-center")}>
+      <PopUp isVisible={true} onClose={() => {}} />
       <MapView
         ref={mapRef}
         style={styles.map}

@@ -11,7 +11,6 @@ export default function Destination() {
         title="Navigate to MapPage"
         to="MapPage"
       />
-      <PopUp />
     </View>
   );
 }
