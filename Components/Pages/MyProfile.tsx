@@ -17,10 +17,6 @@ export default function MyProfile() {
         <Text>Best Distance: 20 km</Text>
         <Text>Elpased Time: 40 minutes</Text>
         <Text>Average Speed: 25 km/h</Text>
-        <Text>My last cycle</Text>
-        <Text>Distance: 10 km</Text>
-        <Text>Elpased Time: 45 minutes</Text>
-        <Text>Average Speed: 20 km/h</Text>
       </View>
       <View
         style={tailwind("flex-1 flex-col items-center justify-between mb-20")}
@@ -63,6 +59,7 @@ export default function MyProfile() {
       <View
         style={tailwind("flex-1 flex-col items-center justify-center m-20")}
       >
+        <Text style={tailwind("text-2xl font-bold")}>Move Goal</Text>
         <ProgressChart
           data={{
             labels: ["Distance", "Time", "Speed"],
