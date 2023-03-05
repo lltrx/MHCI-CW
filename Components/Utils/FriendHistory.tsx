@@ -3,13 +3,16 @@ import { View, Text, StyleSheet } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { data } from "./data";
 import tailwind from "tailwind-rn";
+import BackIcon from "../Utils/backIcon";
 
 export default function FriendHistory(friend) {
   const distances = data.map((item) => item.distance);
   const times = data.map((item) => item.time);
   const speeds = data.map((item) => item.speed);
   return (
-    <View style={tailwind("flex-1 items-center justify-center bottom-28")}>
+    <View style={tailwind("top-10")}>
+      <BackIcon to="Friends" />
+      <View style={tailwind("items-center ")}>
       <Text style={tailwind("text-lg font-bold")}>Alice's Profile</Text>
       <View style={tailwind("p-2")}>
         <Text>Alice's best cycle</Text>
@@ -45,6 +48,7 @@ export default function FriendHistory(friend) {
           }}
           style={{ marginVertical: 8, borderRadius: 16 }}
         />
+      </View>
       </View>
     </View>
   );

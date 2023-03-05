@@ -2,11 +2,11 @@ import { View, Dimensions, StyleSheet, Text } from "react-native";
 import tailwind from "tailwind-rn";
 import MapView, { PROVIDER_GOOGLE, Marker, LatLng } from "react-native-maps";
 import InputAutocomplete from "../Utils/InputAutocomplete";
-import Constants from "expo-constants";
 import { useState, useRef } from "react";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_API_KEY } from "../../env";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import BackIcon from "../Utils/backIcon";
 
 const { width, height } = Dimensions.get("window");
 
@@ -88,23 +88,26 @@ export default function MapPage(InputAutocompleteProps) {
           />
         )}
       </MapView>
-      <View style={tailwind("absolute top-0  w-full  p-2")}>
-        <InputAutocomplete
-          label="Origin"
-          onPlacesSelected={(details) => onPlacesSelected(details, "origin")}
-        />
-        <InputAutocomplete
-          label="Destination"
-          onPlacesSelected={(details) =>
-            onPlacesSelected(details, "destination")
-          }
-        />
-        <TouchableOpacity
-          style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
-          onPress={traceRoute}
-        >
-          <Text>Get Directions</Text>
-        </TouchableOpacity>
+      <View style={tailwind(`absolute w-full top-10`)}>
+        <BackIcon to="Destination" />
+        <View style={tailwind(`p-2 bg-white`)}>
+          <InputAutocomplete
+            label="Origin"
+            onPlacesSelected={(details) => onPlacesSelected(details, "origin")}
+          />
+          <InputAutocomplete
+            label="Destination"
+            onPlacesSelected={(details) =>
+              onPlacesSelected(details, "destination")
+            }
+          />
+          <TouchableOpacity
+            style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
+            onPress={traceRoute}
+          >
+            <Text>Get Directions</Text>
+          </TouchableOpacity>
+        </View>
         {distance > 0 && duration > 0 ? (
           <View style={tailwind("flex-row justify-between")}>
             <Text>Distance: {distance.toFixed(2)} km</Text>

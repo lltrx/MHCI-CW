@@ -31,7 +31,7 @@ export default function PopUp() {
               </View>
             )}
             rightOpenValue={-75}
-          />
+        
         </View>
       </Modal>
     </View>
