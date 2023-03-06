@@ -22,6 +22,7 @@ const INITIAL_REGION = {
 };
 
 export default function MapPage(InputAutocompleteProps) {
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [origin, setOrigin] = useState<LatLng | null>();
   const [destination, setDestination] = useState<LatLng | null>();
   const mapRef = useRef<MapView | null>(null);
@@ -56,6 +57,10 @@ export default function MapPage(InputAutocompleteProps) {
     left: edagePaddingValue,
   };
 
+  const closePopup = () => {
+    setIsPopupVisible(false);
+  };
+
   const traceRouteOnReady = (args: any) => {
     if (args) {
       setDistance(args.distance);
@@ -64,13 +69,14 @@ export default function MapPage(InputAutocompleteProps) {
   };
   const traceRoute = () => {
     if (origin && destination) {
+      setIsPopupVisible(true);
       setShowDirections(true);
       mapRef.current?.fitToCoordinates([origin, destination], { edgePadding });
     }
   };
+
   return (
     <View style={tailwind("flex-1 items-center justify-center")}>
-      <PopUp isVisible={true} onClose={() => {}} />
       <MapView
         ref={mapRef}
         style={styles.map}
@@ -117,6 +123,9 @@ export default function MapPage(InputAutocompleteProps) {
           </View>
         ) : null}
       </View>
+      {isPopupVisible && (
+        <PopUp isVisible={isPopupVisible} onClose={closePopup} />
+      )}
     </View>
   );
 }

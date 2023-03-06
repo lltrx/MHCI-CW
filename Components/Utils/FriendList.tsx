@@ -16,16 +16,18 @@ export default function FriendList(friend) {
   ]);
 
   const handleAddFriend = () => {
-    setFriends([...friends, { id: 3, name: "Charlie" }]);
-    console.log("Add friend");
+    setFriends([
+      ...friends,
+      { id: friends.length + 1, name: "New Friend" },
+    ]);
   };
-
   return (
     <View style={tailwind("flex-1 flex-col top-56 items-center")}>
       <Text style={tailwind("text-lg font-bold")}>Friends:</Text>
       <View>
         {friends.map((friend) => (
           <NavigateButton
+            key={friend.id.toString()} // add key prop here
             style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
             title={friend.name}
             to="FriendHistory"
