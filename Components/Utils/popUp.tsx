@@ -1,30 +1,30 @@
-import { SafeAreaView, Text, View, Button, StyleSheet } from "react-native";
+import { SafeAreaView, Text, View, Button, StyleSheet, FlatList } from "react-native";
 import tailwind from "tailwind-rn";
 import Modal from "react-native-modal";
 import {useState} from "react";
 
-export default function PopUp() {
-     const [isModalVisible, setModalVisible] = useState(false);
-
-     const toggleModal = () => {
-       setModalVisible(!isModalVisible);
-     };
+export default function PopUp({isVisible, onClose}) {
   return (
     <View style={styles.container}>
-      <Button title="Open Checklist" onPress={toggleModal} />
       <Modal
-        isVisible={isModalVisible}
-        onBackdropPress={toggleModal}
+        isVisible={isVisible}
+        onBackdropPress={onClose}
         style={styles.modal}
       >
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Safety Checklist</Text>
+          <FlatList
             data={["Option 1", "Option 2", "Option 3", "Option 4"]}
             renderItem={({ item }) => (
               <View style={styles.checklistItem}>
                 <Text style={styles.checklistItemText}>{item}</Text>
               </View>
             )}
+<<<<<<< HEAD
+            keyExtractor={(item) => item}
+          />
+          <Button title="Close" onPress={onClose} />
+=======
             renderHiddenItem={() => (
               <View style={styles.rowBack}>
                 <Text style={styles.rowBackText}>Complete</Text>
@@ -32,6 +32,7 @@ export default function PopUp() {
             )}
             rightOpenValue={-75}
         
+>>>>>>> dev
         </View>
       </Modal>
     </View>
@@ -66,14 +67,5 @@ const styles = StyleSheet.create({
   },
   checklistItemText: {
     fontSize: 18,
-  },
-
-  rowBack: {
-    alignItems: "center",
-    backgroundColor: "#ddd",
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    paddingLeft: 15,
   },
 });
