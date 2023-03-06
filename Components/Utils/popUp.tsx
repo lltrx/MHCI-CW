@@ -20,9 +20,19 @@ export default function PopUp({isVisible, onClose}) {
                 <Text style={styles.checklistItemText}>{item}</Text>
               </View>
             )}
+<<<<<<< HEAD
             keyExtractor={(item) => item}
           />
           <Button title="Close" onPress={onClose} />
+=======
+            renderHiddenItem={() => (
+              <View style={styles.rowBack}>
+                <Text style={styles.rowBackText}>Complete</Text>
+              </View>
+            )}
+            rightOpenValue={-75}
+        
+>>>>>>> dev
         </View>
       </Modal>
     </View>
