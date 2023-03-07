@@ -4,6 +4,7 @@ import NavigateButton from "../Utils/NavigateButton";
 import PopUp from "../Utils/popUp";
 import Constants from "expo-constants";
 import BackIcon from "../Utils/backIcon";
+import Start from "../Utils/Start";
 
 export default function Destination() {
   return (
@@ -14,6 +15,9 @@ export default function Destination() {
         title="Navigate to MapPage"
         to="MapPage"
       />
+      <View style={tailwind("flex-row justify-between p-12")}>
+      <Start />
+      </View>
     </View>
   );
 }

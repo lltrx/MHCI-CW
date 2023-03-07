@@ -9,6 +9,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import BackIcon from "../Utils/backIcon";
 import PopUp from "../Utils/popUp";
 import WarningPopUp from "../Utils/warningPopUp";
+import WarningPopUp2 from "../Utils/warningPopUp2";
+import WarningPopUp3 from "../Utils/warningPopUp3";
 
 const { width, height } = Dimensions.get("window");
 
@@ -34,11 +36,8 @@ export default function MapPage(InputAutocompleteProps) {
   const [isSearching, setIsSearching] = useState(false);
   const [speed, setSpeed] = useState(0);
   const [isWarningVisible, setIsWarningVisible] = useState(false);
-  const [warningData, setWarningData] = useState([
-    { id: 1, message: "Warning 1" },
-    { id: 2, message: "Warning 2" },
-    { id: 3, message: "Warning 3" },
-  ]);
+  const [isWarningVisible2, setIsWarningVisible2] = useState(false);
+  const [isWarningVisible3, setIsWarningVisible3] = useState(false);
 
   const moveTo = async (position: LatLng) => {
     const camera = await mapRef.current?.getCamera();
@@ -47,6 +46,7 @@ export default function MapPage(InputAutocompleteProps) {
       mapRef.current?.animateCamera(camera, { duration: 1000 });
     }
   };
+  
   const onPlacesSelected = (
     details: GooglePlaceDetails | null,
     flag: "origin" | "destination"
@@ -80,7 +80,7 @@ export default function MapPage(InputAutocompleteProps) {
   };
 
   const speedLoop = () => {
-    for (let i = 0; i <= 50; i++) {
+    for (let i = 0; i <= 10; i++) {
       setTimeout(() => {
         setSpeed(i);
       }, i * 1000);
@@ -98,8 +98,11 @@ export default function MapPage(InputAutocompleteProps) {
   const speedWarning = () => {
     if (speed == 2 && !isWarningVisible) {
       setIsWarningVisible(true);
-    } 
-    
+    } else if (speed == 5 && !isWarningVisible2) {
+      setIsWarningVisible2(true);
+    } else if (speed == 10 && !isWarningVisible3) {
+      setIsWarningVisible3(true);
+    }
   };
 
   useEffect(() => {
@@ -129,7 +132,7 @@ export default function MapPage(InputAutocompleteProps) {
       <View style={tailwind(`absolute w-full top-10`)}>
         <BackIcon to="Destination" />
         {showInput && (
-          <View style={tailwind(`p-2 bg-white`)}>
+          <View style={tailwind("bg-gray-400 rounded p-4")}>
             <InputAutocomplete
               label="Origin"
               onPlacesSelected={(details) =>
@@ -143,7 +146,7 @@ export default function MapPage(InputAutocompleteProps) {
               }
             />
             <TouchableOpacity
-              style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
+              style={tailwind("bg-blue-500  px-5 py-3 rounded-full")}
               onPress={traceRoute}
             >
               <Text>Get Directions</Text>
@@ -164,8 +167,19 @@ export default function MapPage(InputAutocompleteProps) {
       {isWarningVisible && (
         <WarningPopUp
           isVisible={isWarningVisible}
-          data={warningData}
           onClose={() => setIsWarningVisible(false)}
+        />
+      )}
+      {isWarningVisible2 && (
+        <WarningPopUp2
+          isVisible={isWarningVisible2}
+          onClose={() => setIsWarningVisible2(false)}
+        />
+      )}
+      {isWarningVisible3 && (
+        <WarningPopUp3
+          isVisible={isWarningVisible3}
+          onClose={() => setIsWarningVisible3(false)}
         />
       )}
       <View style={tailwind("absolute bottom-6")}>

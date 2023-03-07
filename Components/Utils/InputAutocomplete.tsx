@@ -20,7 +20,7 @@ export default function InputAutocomplete({
     <>
       <Text>{label}</Text>
       <GooglePlacesAutocomplete
-        style={tailwind("border-2 rounded-md")}
+        
         placeholder={placeholder || ""}
         fetchDetails
         onPress={(data, details = null) => {
