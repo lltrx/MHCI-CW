@@ -3,8 +3,9 @@ import { LineChart, ProgressChart } from "react-native-chart-kit";
 import tailwind from "tailwind-rn";
 import { data } from "../Utils/data";
 import BackIcon from "../Utils/backIcon";
+import { useEffect } from "react";
 
-export default function MyProfile() {
+export default function MyProfile({ setAchievements }) {
   const distances = data.map((item) => item.distance);
   const times = data.map((item) => item.time);
   const speeds = data.map((item) => item.speed);
@@ -14,9 +15,18 @@ export default function MyProfile() {
       <BackIcon to="Home" />
       <View style={tailwind("flex-1 flex-col items-center mb-2")}>
         <Text style={tailwind("text-2xl font-bold")}>My Profile</Text>
-        <Text>Best Distance: 20 km</Text>
-        <Text>Elpased Time: 40 minutes</Text>
-        <Text>Average Speed: 25 km/h</Text>
+        <Text style={tailwind("text-lg font-bold")}>Distance</Text>
+        <Text style={tailwind("text-lg font-bold")}>
+          {distances.reduce((a, b) => a + b, 0)} km
+        </Text>
+        <Text style={tailwind("text-lg font-bold")}>Time</Text>
+        <Text style={tailwind("text-lg font-bold")}>
+          {times.reduce((a, b) => a + b, 0)} min
+        </Text>
+        <Text style={tailwind("text-lg font-bold")}>Average Speed</Text>
+        <Text style={tailwind("text-lg font-bold")}>
+          {speeds.reduce((a, b) => a + b, 0)} km/h
+        </Text>
       </View>
       <View
         style={tailwind("flex-1 flex-col items-center justify-between mb-20")}

@@ -2,12 +2,13 @@ import { View, Dimensions, StyleSheet, Text } from "react-native";
 import tailwind from "tailwind-rn";
 import MapView, { PROVIDER_GOOGLE, Marker, LatLng } from "react-native-maps";
 import InputAutocomplete from "../Utils/InputAutocomplete";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_API_KEY } from "../../env";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import BackIcon from "../Utils/backIcon";
 import PopUp from "../Utils/popUp";
+import WarningPopUp from "../Utils/warningPopUp";
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,6 +30,16 @@ export default function MapPage(InputAutocompleteProps) {
   const [showDirections, setShowDirections] = useState(false);
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [showInput, setShowInput] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
+  const [speed, setSpeed] = useState(0);
+  const [isWarningVisible, setIsWarningVisible] = useState(false);
+  const [warningData, setWarningData] = useState([
+    { id: 1, message: "Warning 1" },
+    { id: 2, message: "Warning 2" },
+    { id: 3, message: "Warning 3" },
+  ]);
+
   const moveTo = async (position: LatLng) => {
     const camera = await mapRef.current?.getCamera();
     if (camera) {
@@ -67,6 +78,15 @@ export default function MapPage(InputAutocompleteProps) {
       setDuration(args.duration);
     }
   };
+
+  const speedLoop = () => {
+    for (let i = 0; i <= 50; i++) {
+      setTimeout(() => {
+        setSpeed(i);
+      }, i * 1000);
+    }
+  };
+
   const traceRoute = () => {
     if (origin && destination) {
       setIsPopupVisible(true);
@@ -75,6 +95,16 @@ export default function MapPage(InputAutocompleteProps) {
     }
   };
 
+  const speedWarning = () => {
+    if (speed == 2 && !isWarningVisible) {
+      setIsWarningVisible(true);
+    } 
+    
+  };
+
+  useEffect(() => {
+    speedWarning();
+  }, [speed]);
   return (
     <View style={tailwind("flex-1 items-center justify-center")}>
       <MapView
@@ -98,24 +128,28 @@ export default function MapPage(InputAutocompleteProps) {
       </MapView>
       <View style={tailwind(`absolute w-full top-10`)}>
         <BackIcon to="Destination" />
-        <View style={tailwind(`p-2 bg-white`)}>
-          <InputAutocomplete
-            label="Origin"
-            onPlacesSelected={(details) => onPlacesSelected(details, "origin")}
-          />
-          <InputAutocomplete
-            label="Destination"
-            onPlacesSelected={(details) =>
-              onPlacesSelected(details, "destination")
-            }
-          />
-          <TouchableOpacity
-            style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
-            onPress={traceRoute}
-          >
-            <Text>Get Directions</Text>
-          </TouchableOpacity>
-        </View>
+        {showInput && (
+          <View style={tailwind(`p-2 bg-white`)}>
+            <InputAutocomplete
+              label="Origin"
+              onPlacesSelected={(details) =>
+                onPlacesSelected(details, "origin")
+              }
+            />
+            <InputAutocomplete
+              label="Destination"
+              onPlacesSelected={(details) =>
+                onPlacesSelected(details, "destination")
+              }
+            />
+            <TouchableOpacity
+              style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
+              onPress={traceRoute}
+            >
+              <Text>Get Directions</Text>
+            </TouchableOpacity>
+          </View>
+        )}
         {distance > 0 && duration > 0 ? (
           <View style={tailwind("flex-row justify-between")}>
             <Text>Distance: {distance.toFixed(2)} km</Text>
@@ -123,11 +157,41 @@ export default function MapPage(InputAutocompleteProps) {
           </View>
         ) : null}
       </View>
+
       {isPopupVisible && (
         <PopUp isVisible={isPopupVisible} onClose={closePopup} />
       )}
+      {isWarningVisible && (
+        <WarningPopUp
+          isVisible={isWarningVisible}
+          data={warningData}
+          onClose={() => setIsWarningVisible(false)}
+        />
+      )}
+      <View style={tailwind("absolute bottom-6")}>
+        <Text style={tailwind("text-2xl")}>Speed: {speed} km/h</Text>
+
+        <TouchableOpacity
+          style={tailwind("bg-blue-500 border-2 px-5 py-3  rounded-full")}
+          onPress={() => {
+            if (isSearching) {
+              setShowInput(true);
+              setIsSearching(false);
+              setIsWarningVisible(false);
+            }
+            if (!isSearching) {
+              setShowInput(false);
+              setIsSearching(true);
+              speedLoop();
+            }
+          }}
+        >
+          <Text>{isSearching ? "Set Another Destination" : "Start"}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
+  ``;
 }
 
 const styles = StyleSheet.create({
