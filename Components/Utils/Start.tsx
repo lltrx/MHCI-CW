@@ -9,6 +9,7 @@ export default function Start() {
   const [distance, setDistance] = useState(0);
   const [start, setStart] = useState(false);
   const [show, setShow] = useState(true);
+  const [kcal, setKcal] = useState(0);
 
   const startButton = () => {
     setStart(true);
@@ -19,6 +20,7 @@ export default function Start() {
     timeLoop();
     distanceLoop();
     speedLoop();
+    kcalLoop();
   };
 
   const timeLoop = () => {
@@ -34,6 +36,14 @@ export default function Start() {
       setTimeout(() => {
         setDistance(i);
       }, i * 200);
+    }
+  };
+
+  const kcalLoop = () => {
+    for (let i = 0; i <= 100; i++) {
+      setTimeout(() => {
+        setKcal(i);
+      }, i * 2000);
     }
   };
 
@@ -63,8 +73,9 @@ export default function Start() {
           <Text style={tailwind("text-sm font-bold")}>Speed: {speed} km/h</Text>
           <Text style={tailwind("text-sm font-bold")}>Time: {time} s</Text>
           <Text style={tailwind("text-sm font-bold")}>
-            Distance: {distance} km
+            Distance: {distance} m
           </Text>
+          <Text style={tailwind("text-sm font-bold")}>Kcal: {kcal} kcal</Text>
           <TouchableOpacity
             style={tailwind(
               "bg-blue-500 items-center px-5 py-3  mt-2 rounded-full"
