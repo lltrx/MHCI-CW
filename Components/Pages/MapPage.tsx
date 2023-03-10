@@ -11,8 +11,12 @@ import PopUp from "../Utils/popUp";
 import WarningPopUp from "../Utils/warningPopUp";
 import WarningPopUp2 from "../Utils/warningPopUp2";
 import WarningPopUp3 from "../Utils/warningPopUp3";
+import { Audio } from "expo-av";
+const right = [require("../../assets/right.m4a")];
+const startMap = [require("../../assets/startMap.m4a")];
 
 const { width, height } = Dimensions.get("window");
+
 
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.02;
@@ -22,6 +26,48 @@ const INITIAL_REGION = {
   longitude: -122.4324,
   latitudeDelta: LATITUDE_DELTA,
   longitudeDelta: LONGITUDE_DELTA,
+};
+
+hanlePlaySoundRight = async () => {
+  const soundObj = new Audio.Sound();
+
+  try {
+    let source = right[0];
+    await soundObj.loadAsync(source);
+    await soundObj
+      .playAsync()
+      .then(async (playbackStatus) => {
+        setTimeout(() => {
+          soundObj.unloadAsync();
+        }, playbackStatus.playableDurationMillis);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+hanlePlaySoundStartMap = async () => {
+  const soundObj = new Audio.Sound();
+
+  try {
+    let source = startMap[0];
+    await soundObj.loadAsync(source);
+    await soundObj
+      .playAsync()
+      .then(async (playbackStatus) => {
+        setTimeout(() => {
+          soundObj.unloadAsync();
+        }, playbackStatus.playableDurationMillis);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default function MapPage(InputAutocompleteProps) {
@@ -46,7 +92,7 @@ export default function MapPage(InputAutocompleteProps) {
       mapRef.current?.animateCamera(camera, { duration: 1000 });
     }
   };
-  
+
   const onPlacesSelected = (
     details: GooglePlaceDetails | null,
     flag: "origin" | "destination"
@@ -108,6 +154,7 @@ export default function MapPage(InputAutocompleteProps) {
   useEffect(() => {
     speedWarning();
   }, [speed]);
+
   return (
     <View style={tailwind("flex-1 items-center justify-center")}>
       <MapView
@@ -205,7 +252,6 @@ export default function MapPage(InputAutocompleteProps) {
       </View>
     </View>
   );
-  ``;
 }
 
 const styles = StyleSheet.create({

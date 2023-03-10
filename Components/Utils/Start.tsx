@@ -2,6 +2,74 @@ import React, { useState, useEffect } from "react";
 import { Text, View, Button } from "react-native";
 import tailwind from "tailwind-rn";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Audio } from "expo-av";
+
+const beatAlex = [require("../../assets/beatAlex.m4a")];
+const beatBob = [require("../../assets/beatBob.m4a")];
+const target = [require("../../assets/target.m4a")];
+
+hanlePlaySoundBeatAlex = async () => {
+  const soundObj = new Audio.Sound();
+
+  try {
+    let source = beatAlex[0];
+    await soundObj.loadAsync(source);
+    await soundObj
+      .playAsync()
+      .then(async (playbackStatus) => {
+        setTimeout(() => {
+          soundObj.unloadAsync();
+        }, playbackStatus.playableDurationMillis);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+hanlePlaySoundBeatBob = async () => {
+  const soundObj = new Audio.Sound();
+
+  try {
+    let source = beatBob[0];
+    await soundObj.loadAsync(source);
+    await soundObj
+      .playAsync()
+      .then(async (playbackStatus) => {
+        setTimeout(() => {
+          soundObj.unloadAsync();
+        }, playbackStatus.playableDurationMillis);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+hanlePlaySoundTarget = async () => {
+  const soundObj = new Audio.Sound();
+
+  try {
+    let source = target[0];
+    await soundObj.loadAsync(source);
+    await soundObj
+      .playAsync()
+      .then(async (playbackStatus) => {
+        setTimeout(() => {
+          soundObj.unloadAsync();
+        }, playbackStatus.playableDurationMillis);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default function Start() {
   const [speed, setSpeed] = useState(0);
@@ -10,6 +78,7 @@ export default function Start() {
   const [start, setStart] = useState(false);
   const [show, setShow] = useState(true);
   const [kcal, setKcal] = useState(0);
+  let timeLoopId, distanceLoopId, speedLoopId, kcalLoopId;
 
   const startButton = () => {
     setStart(true);
@@ -17,42 +86,45 @@ export default function Start() {
   };
 
   const loop = () => {
-    timeLoop();
-    distanceLoop();
-    speedLoop();
-    kcalLoop();
+    timeLoopId = timeLoop();
+    distanceLoopId = distanceLoop();
+    speedLoopId = speedLoop();
+    kcalLoopId = kcalLoop();
   };
-
+  
+  
   const timeLoop = () => {
-    for (let i = 0; i <= 100; i++) {
-      setTimeout(() => {
-        setTime(i);
-      }, i * 1000);
-    }
+    setTimeout(() => {
+      setTime((time) => (time + 1) % 1000);
+      timeLoop();
+    }, 500);
   };
-
+  
   const distanceLoop = () => {
-    for (let i = 0; i <= 100; i++) {
-      setTimeout(() => {
-        setDistance(i);
-      }, i * 200);
-    }
+    setTimeout(() => {
+      setDistance((distance) => (distance + 1) % 1000);
+      distanceLoop();
+    }, 300);
   };
-
+  
   const kcalLoop = () => {
-    for (let i = 0; i <= 100; i++) {
-      setTimeout(() => {
-        setKcal(i);
-      }, i * 2000);
-    }
+    setTimeout(() => {
+      setKcal((kcal) => (kcal + 1) % 1000);
+      kcalLoop();
+    }, 1000);
   };
-
+  
   const speedLoop = () => {
-    for (let i = 0; i <= 10; i++) {
-      setTimeout(() => {
-        setSpeed(i);
-      }, i * 1000);
-    }
+    setTimeout(() => {
+      setSpeed((speed) => {
+        if (speed < 50) {
+          return (speed + 1) % 100;
+        } else {
+          return 50;
+        }
+      });
+      speedLoop();
+    }, 500);
   };
 
   return (
@@ -81,11 +153,16 @@ export default function Start() {
               "bg-blue-500 items-center px-5 py-3  mt-2 rounded-full"
             )}
             onPress={() => {
+              clearTimeout(timeLoopId);
+              clearTimeout(distanceLoopId);
+              clearTimeout(speedLoopId);
+              clearTimeout(kcalLoopId);
               setStart(false);
               setShow(true);
               setSpeed(0);
               setTime(0);
               setDistance(0);
+              setKcal(0);
             }}
           >
             <Text style={tailwind("text-sm font-bold")}>Stop</Text>
