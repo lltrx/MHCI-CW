@@ -3,23 +3,28 @@ import { View, Text, StyleSheet } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { data } from "./data";
 import tailwind from "tailwind-rn";
+import BackIcon from "../Utils/backIcon";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function FriendHistory(friend) {
+export default function FriendHistory() {
   const distances = data.map((item) => item.distance);
   const times = data.map((item) => item.time);
   const speeds = data.map((item) => item.speed);
+
+  const handlePopup = () => {
+    alert("Request sent");
+  };
+
   return (
-    <View style={tailwind("flex-1 items-center justify-center bottom-28")}>
-      <Text style={tailwind("text-lg font-bold")}>Alice's Profile</Text>
+    <View style={tailwind("top-10")}>
+      <BackIcon to="Friends" />
+      <View style={tailwind("items-center ")}>
+      <Text style={tailwind("text-lg font-bold")}>Friend's Profile</Text>
       <View style={tailwind("p-2")}>
-        <Text>Alice's best cycle</Text>
+        <Text>Friend's best cycle</Text>
         <Text>Best Distance: 20 km</Text>
         <Text>Elpased Time: 40 minutes</Text>
         <Text>Average Speed: 25 km/h</Text>
-        <Text>Alice's last cycle</Text>
-        <Text>Distance: 10 km</Text>
-        <Text>Elpased Time: 45 minutes</Text>
-        <Text>Average Speed: 20 km/h</Text>
       </View>
       <View style={tailwind("p-4")}>
         <LineChart
@@ -45,6 +50,19 @@ export default function FriendHistory(friend) {
           }}
           style={{ marginVertical: 8, borderRadius: 16 }}
         />
+      </View>
+      <View style={tailwind("p-4")}>
+        <Text>Friend has their move goal private, you can request them to share their move goal</Text>
+        <View style={tailwind("p-2")}>
+          <TouchableOpacity style={tailwind("bg-blue-500 p-2 rounded")} onPress={() => {
+            console.log("Request sent");
+            handlePopup();
+          }
+        }>
+            <Text style={tailwind("text-white text-center")}>Request to view move goal</Text>
+          </TouchableOpacity>
+          </View>
+      </View>
       </View>
     </View>
   );
