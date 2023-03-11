@@ -126,9 +126,14 @@ export default function MapPage(InputAutocompleteProps) {
   };
 
   const speedLoop = () => {
-    for (let i = 0; i <= 10; i++) {
+    for (let i = 0; i <= 100; i++) {
       setTimeout(() => {
         setSpeed(i);
+        if (i === 0) {
+          hanlePlaySoundStartMap();
+        } else if (i === 20) {
+          hanlePlaySoundRight();
+        }
       }, i * 1000);
     }
   };
@@ -142,11 +147,11 @@ export default function MapPage(InputAutocompleteProps) {
   };
 
   const speedWarning = () => {
-    if (speed == 2 && !isWarningVisible) {
+    if (speed == 30 && !isWarningVisible) {
       setIsWarningVisible(true);
-    } else if (speed == 5 && !isWarningVisible2) {
+    } else if (speed == 50 && !isWarningVisible2) {
       setIsWarningVisible2(true);
-    } else if (speed == 10 && !isWarningVisible3) {
+    } else if (speed == 70 && !isWarningVisible3) {
       setIsWarningVisible3(true);
     }
   };
@@ -243,6 +248,7 @@ export default function MapPage(InputAutocompleteProps) {
             if (!isSearching) {
               setShowInput(false);
               setIsSearching(true);
+              setSpeed(0);
               speedLoop();
             }
           }}
