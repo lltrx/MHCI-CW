@@ -3,12 +3,13 @@ import { Text, View, Button } from "react-native";
 import tailwind from "tailwind-rn";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Audio } from "expo-av";
+import TargetPopUp from "./targetPopUp";
 
 const beatAlex = [require("../../assets/beatAlex.m4a")];
 const beatBob = [require("../../assets/beatBob.m4a")];
 const target = [require("../../assets/target.m4a")];
 
-hanlePlaySoundBeatAlex = async () => {
+playSoundBeatAlex = async () => {
   const soundObj = new Audio.Sound();
 
   try {
@@ -29,7 +30,7 @@ hanlePlaySoundBeatAlex = async () => {
   }
 };
 
-hanlePlaySoundBeatBob = async () => {
+playSoundBeatBob = async () => {
   const soundObj = new Audio.Sound();
 
   try {
@@ -50,7 +51,7 @@ hanlePlaySoundBeatBob = async () => {
   }
 };
 
-hanlePlaySoundTarget = async () => {
+playSoundTarget = async () => {
   const soundObj = new Audio.Sound();
 
   try {
@@ -78,11 +79,16 @@ export default function Start() {
   const [start, setStart] = useState(false);
   const [show, setShow] = useState(true);
   const [kcal, setKcal] = useState(0);
+  const [isVisible , setIsVisible] = useState(false);
   let timeLoopId, distanceLoopId, speedLoopId, kcalLoopId;
 
   const startButton = () => {
     setStart(true);
     setShow(false);
+  };
+
+  const onClose = () => {
+    setIsVisible(false);
   };
 
   const loop = () => {
@@ -91,29 +97,40 @@ export default function Start() {
     speedLoopId = speedLoop();
     kcalLoopId = kcalLoop();
   };
-  
-  
+
   const timeLoop = () => {
     setTimeout(() => {
-      setTime((time) => (time + 1) % 1000);
+      setTime((time) => {
+        if (time === 10) {
+          playSoundBeatAlex();
+        } else if (time === 30) {
+          playSoundBeatBob();
+        } else if (time === 50) {
+          playSoundTarget();
+          
+        } else if (time === 70) {
+          setIsVisible(true);
+        }
+        return (time + 1) % 1000;
+      });
       timeLoop();
     }, 500);
   };
-  
+
   const distanceLoop = () => {
     setTimeout(() => {
       setDistance((distance) => (distance + 1) % 1000);
       distanceLoop();
     }, 300);
   };
-  
+
   const kcalLoop = () => {
     setTimeout(() => {
       setKcal((kcal) => (kcal + 1) % 1000);
       kcalLoop();
     }, 1000);
   };
-  
+
   const speedLoop = () => {
     setTimeout(() => {
       setSpeed((speed) => {
@@ -148,10 +165,17 @@ export default function Start() {
             Distance: {distance} m
           </Text>
           <Text style={tailwind("text-sm font-bold")}>Kcal: {kcal} kcal</Text>
+          { isVisible && (
+              <TargetPopUp
+                isVisible={isVisible}
+                onClose={onClose}
+                />
+            )}
           <TouchableOpacity
             style={tailwind(
               "bg-blue-500 items-center px-5 py-3  mt-2 rounded-full"
             )}
+
             onPress={() => {
               clearTimeout(timeLoopId);
               clearTimeout(distanceLoopId);
