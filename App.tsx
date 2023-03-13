@@ -3,7 +3,7 @@ import { SafeAreaView, Text, View, Button, StyleSheet } from "react-native";
 import tailwind from "tailwind-rn";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./Components/Pages/Home";
-import Destination from "./Components/Pages/Destination";
+import Training from "./Components/Pages/Training";
 import Friends from "./Components/Pages/Friends";
 import FriendHistory from "./Components/Utils/FriendHistory";
 import MyProfile from "./Components/Pages/MyProfile";
@@ -23,8 +23,8 @@ export default function App() {
         />
         <Stack.Screen
           options={{ headerShown: false }}
-          name="Destination"
-          component={Destination}
+          name="Training"
+          component={Training}
         />
         <Stack.Screen
           options={{ headerShown: false }}

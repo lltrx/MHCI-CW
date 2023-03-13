@@ -17,7 +17,6 @@ const startMap = [require("../../assets/startMap.m4a")];
 
 const { width, height } = Dimensions.get("window");
 
-
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.02;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -182,9 +181,9 @@ export default function MapPage(InputAutocompleteProps) {
         )}
       </MapView>
       <View style={tailwind(`absolute w-full top-10`)}>
-        <BackIcon to="Destination" />
+        <BackIcon to="Home" />
         {showInput && (
-          <View style={tailwind("bg-gray-400 rounded p-4")}>
+          <View style={styles.container} >
             <InputAutocomplete
               label="Origin"
               onPlacesSelected={(details) =>
@@ -264,5 +263,9 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
   },
 });

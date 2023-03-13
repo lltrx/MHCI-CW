@@ -1,7 +1,6 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_API_KEY } from "../../env";
-import { Text } from "react-native";
-import tailwind from "tailwind-rn";
+import { Text, StyleSheet } from "react-native";
 
 type InputAutocomplete = {
   label: string;
@@ -13,14 +12,19 @@ export default function InputAutocomplete({
   label,
   placeholder,
   onPlacesSelected,
-}: InputAutocompleteProps) 
-
-{
+}: InputAutocompleteProps) {
   return (
     <>
       <Text>{label}</Text>
       <GooglePlacesAutocomplete
-        
+        styles={{
+          textInput: styles.input,
+          textInputContainer: {
+            backgroundColor: "transparent",
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+          },
+        }}
         placeholder={placeholder || ""}
         fetchDetails
         onPress={(data, details = null) => {
@@ -34,3 +38,12 @@ export default function InputAutocomplete({
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 10,
+    margin: 10,
+  },
+});

@@ -6,15 +6,10 @@ import Constants from "expo-constants";
 import BackIcon from "../Utils/backIcon";
 import Start from "../Utils/Start";
 
-export default function Destination() {
+export default function Training() {
   return (
     <View style={tailwind(`flex flex-col justify-center top-10`)}>
       <BackIcon to="Home" />
-      <NavigateButton
-        style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
-        title="Navigate to MapPage"
-        to="MapPage"
-      />
       <View style={tailwind("flex-row justify-between p-12")}>
       <Start />
       </View>

@@ -13,9 +13,14 @@ export default function Home() {
       </View>
       <View style={tailwind("flex items-center top-48")}>
         <NavigateButton
-          style={tailwind("bg-blue-500 border-2 px-5 py-3 rounded-full")}
-          title="Navigate to Destination"
-          to="Destination"
+        
+          title="Navigate to Training"
+          to="Training"
+        />
+        <NavigateButton
+          
+          title="Navigate to MapPage"
+          to="MapPage"
         />
       </View>
     </View>
