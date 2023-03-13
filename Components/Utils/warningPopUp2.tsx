@@ -11,10 +11,10 @@ export default function WarningPopUp2({ isVisible, onClose }) {
     onBackButtonPress={onClose}
     style={tailwind("flex-1 items-center justify-center")}
   >
-    <View style={tailwind("bg-yellow-900 p-2 w-3/4 rounded")}>
+    <View style={tailwind("bg-yellow-700 p-2 w-3/4 rounded")}>
       <Text style={tailwind("text-2xl font-bold")}>Warning</Text>
       <Text style={tailwind("text-sm")}>
-        You are going too fast! 
+        Traffic ahead! Slow down!
       </Text>
     </View>
   </Modal>

@@ -234,7 +234,7 @@ export default function MapPage(InputAutocompleteProps) {
         />
       )}
       <View style={tailwind("absolute bottom-6")}>
-        <Text style={tailwind("text-2xl")}>Speed: {speed} km/h</Text>
+        <Text style={tailwind("text-2xl ")}>Speed: {speed} km/h</Text>
 
         <TouchableOpacity
           style={tailwind("bg-blue-500 border-2 px-5 py-3  rounded-full")}
@@ -265,7 +265,10 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
   },
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    top: -10,  
+    padding: 10,
+    backgroundColor: "gray",
+    margin: 20,
+    borderRadius: 10,
   },
 });

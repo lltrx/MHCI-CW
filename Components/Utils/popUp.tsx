@@ -6,10 +6,10 @@ import { Swipeable } from "react-native-gesture-handler";
 
 export default function PopUp({ isVisible, onClose }) {
   const [data, setData] = useState([
-    "Option 1",
-    "Option 2",
-    "Option 3",
-    "Option 4",
+    "Safety helmet",
+    "Knee pads",
+    "Lights",
+    "Gloves",
   ]);
 
   const deleteItem = (index) => {
